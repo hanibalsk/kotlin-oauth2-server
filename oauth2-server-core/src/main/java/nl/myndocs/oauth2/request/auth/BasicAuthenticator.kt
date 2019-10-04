@@ -6,9 +6,9 @@ import nl.myndocs.oauth2.request.headerCaseInsensitive
 
 open class BasicAuthenticator(protected val context: CallContext) {
     fun extractCredentials(): Credentials? {
-        val authorizationHeader = context.headerCaseInsensitive("authorization") ?: ""
+        val authorizationHeader = context.headerCaseInsensitive("authorization")
 
-        return BasicAuth.parseCredentials(authorizationHeader)
+        return authorizationHeader?.let { BasicAuth.parseCredentials(authorizationHeader) }
     }
 
     fun openAuthenticationDialog() {
